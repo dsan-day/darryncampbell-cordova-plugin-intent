@@ -39,7 +39,7 @@
             </provider>
         </config-file>  -->
 
-		<edit-config target="AndroidManifest.xml" parent="application">
+		<edit-config target="AndroidManifest.xml" parent="/manifest/application" mode="merge">
 
 			<provider
                 android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
