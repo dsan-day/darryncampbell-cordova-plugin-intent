@@ -27,7 +27,7 @@
         <config-file target="AndroidManifest.xml" platform="android" parent="/manifest" mode="merge">
             <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
         </config-file>
-        <config-file target="AndroidManifest.xml" platform="android" parent="/manifest/application" mode="merge">
+<!--        <config-file target="AndroidManifest.xml" platform="android" parent="/manifest/application" mode="merge">
             <provider
                 android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
                 android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider"
@@ -37,10 +37,47 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/provider_paths"/>
             </provider>
-        </config-file>
+        </config-file>  -->
+
+		<edit-config target="AndroidManifest.xml" parent="application">
+          <provider
+              android:name="org.apache.cordova.camera.FileProvider"
+              android:authorities="${applicationId}.camera.provider"
+              android:exported="false"
+              android:grantUriPermissions="true" >
+              <meta-data
+                  android:name="android.support.FILE_PROVIDER_PATHS"
+                  android:resource="@xml/camera_provider_paths"/>
+          </provider>
+			<provider
+                android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
+                android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+            </provider>
+        </edit-config>
+
+        <edit-config target="AndroidManifest.xml" parent="/*">
+            <queries>
+                <intent>
+                    <action android:name="android.media.action.IMAGE_CAPTURE" />
+                </intent>
+                <intent>
+                    <action android:name="android.intent.action.GET_CONTENT" />
+                </intent>
+                <intent>
+                    <action android:name="android.intent.action.PICK" />
+                </intent>
+            </queries>
+        </edit-config>
+		
         <source-file src="src/android/IntentShim.java" target-dir="src/com/darryncampbell/plugin/intent" />
         <source-file src="src/android/CordovaPluginIntentFileProvider.java" target-dir="src/com/darryncampbell/plugin/intent" />
 		<resource-file src="src/android/res/xml/provider_paths.xml" target="res/xml/provider_paths.xml"/>
+		<resource-file src="src/android/res/xml/camera_provider_paths.xml" target="res/xml/camera_provider_paths.xml"/>
 		<framework src="androidx.core:core:1.1.0" />
     </platform>
 	
