@@ -23,12 +23,44 @@
 			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 			<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 		</config-file>
+
+
+<!--
+		
 		<edit-config target="AndroidManifest.xml" parent="application">
 			<provider android:name="org.apache.cordova.camera.FileProvider" android:authorities="${applicationId}.camera.provider" android:exported="false" android:grantUriPermissions="true">
 				<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
 			</provider>
-			<!-- <provider android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider" android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider" android:exported="false" android:grantUriPermissions="true"> <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/> </provider> -->
+			 <provider android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider" android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider" android:exported="false" android:grantUriPermissions="true"> <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/> </provider> 
 		</edit-config>
+-->
+
+		<edit-config target="AndroidManifest.xml" parent="application" mode="merge">
+    <!-- Camera provider -->
+    <provider
+        android:name="org.apache.cordova.camera.FileProvider"
+        android:authorities="${applicationId}.camera.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/camera_provider_paths"/>
+    </provider>
+
+    <!-- Intent plugin provider -->
+    <provider
+        android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
+        android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/provider_paths"/>
+    </provider>
+</edit-config>
+
+
+		
 		<edit-config target="AndroidManifest.xml" parent="/*">
 			<queries>
 				<intent>
