@@ -35,7 +35,7 @@
 		</edit-config>
 -->
 
-		<edit-config target="AndroidManifest.xml" parent="application" mode="merge">
+		<edit-config target="AndroidManifest.xml" parent="application">
     <!-- Camera provider -->
     <provider
         android:name="org.apache.cordova.camera.FileProvider"
