@@ -19,14 +19,16 @@
 		</config-file>
 
 		
-		<!-- These modifications to AndroidManifest.xml are applied in the plugin.xml file of the Intent Plugin (Zebra). 
+		<!-- 
+		These modifications to AndroidManifest.xml are applied in the plugin.xml file of the Intent Plugin (Zebra). 
 		Background: - Cordova's "edit-config" command can cause conflicts when multiple plugins attempt to modify the same AndroidManifest.xml attribute. 
 		See: https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html - When this conflict occurs, the affected manifest elements must be manually merged into a single plugin to avoid runtime issues. 
 		Decision: - We merged the conflicting elements into the Intent Plugin because it is referenced by all three mobile apps.
 			- This prevents unnecessary references to the Camera Plugin in the Delivery App and the Sanday Authenticator, keeping dependencies cleaner. 
 		Summary: - All AndroidManifest.xml changes that overlap between plugins should be consolidated in this file (Intent Plugin) to avoid conflicts.
 
-		<!--   https://promedico.atlassian.net/wiki/spaces/NEW/pages/1721761844/Camera+Plugin+conflict+-+Support+Case-->
+		   https://promedico.atlassian.net/wiki/spaces/NEW/pages/1721761844/Camera+Plugin+conflict+-+Support+Case
+		-->
 	
 		
 		<edit-config target="AndroidManifest.xml" parent="/*">
