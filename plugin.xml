@@ -17,7 +17,16 @@
 				<param name="onload" value="true"/>
 			</feature>
 		</config-file>
-		<!-- These modifications to AndroidManifest.xml are applied in the plugin.xml file of the Intent Plugin (Zebra). Background: - Cordova's "edit-config" command can cause conflicts when multiple plugins attempt to modify the same AndroidManifest.xml attribute. See: https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html - When this conflict occurs, the affected manifest elements must be manually merged into a single plugin to avoid runtime issues. Decision: - We merged the conflicting elements into the Intent Plugin because it is referenced by all three mobile apps. - This prevents unnecessary references to the Camera Plugin in the Delivery App and the Sanday Authenticator, keeping dependencies cleaner. Summary: - All AndroidManifest.xml changes that overlap between plugins should be consolidated in this file (Intent Plugin) to avoid conflicts. -->
+
+		
+		<!-- These modifications to AndroidManifest.xml are applied in the plugin.xml file of the Intent Plugin (Zebra). 
+		Background: - Cordova's "edit-config" command can cause conflicts when multiple plugins attempt to modify the same AndroidManifest.xml attribute. 
+		See: https://cordova.apache.org/docs/en/latest/plugin_ref/spec.html - When this conflict occurs, the affected manifest elements must be manually merged into a single plugin to avoid runtime issues. 
+		Decision: - We merged the conflicting elements into the Intent Plugin because it is referenced by all three mobile apps.
+			- This prevents unnecessary references to the Camera Plugin in the Delivery App and the Sanday Authenticator, keeping dependencies cleaner. 
+		Summary: - All AndroidManifest.xml changes that overlap between plugins should be consolidated in this file (Intent Plugin) to avoid conflicts.
+
+		<!--   https://promedico.atlassian.net/wiki/spaces/NEW/pages/1721761844/Camera+Plugin+conflict+-+Support+Case-->
 	
 		
 		<edit-config target="AndroidManifest.xml" parent="/*">
@@ -27,43 +36,34 @@
 		</edit-config>
 
 
-<!--
-		
-		<edit-config target="AndroidManifest.xml" parent="application">
-			<provider android:name="org.apache.cordova.camera.FileProvider" android:authorities="${applicationId}.camera.provider" android:exported="false" android:grantUriPermissions="true">
-				<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/>
-			</provider>
-			 <provider android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider" android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider" android:exported="false" android:grantUriPermissions="true"> <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/provider_paths"/> </provider> 
-		</edit-config>
--->
+
 
 		<edit-config target="AndroidManifest.xml" parent="application">
     <!-- Camera provider -->
-    <provider
-        android:name="org.apache.cordova.camera.FileProvider"
-        android:authorities="${applicationId}.camera.provider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/camera_provider_paths"/>
-    </provider>
+		    <provider
+		        android:name="org.apache.cordova.camera.FileProvider"
+		        android:authorities="${applicationId}.camera.provider"
+		        android:exported="false"
+		        android:grantUriPermissions="true">
+		        <meta-data
+		            android:name="android.support.FILE_PROVIDER_PATHS"
+		            android:resource="@xml/camera_provider_paths"/>
+		    </provider>
 
     <!-- Intent plugin provider -->
-    <provider
-        android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
-        android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/provider_paths"/>
-    </provider>
-</edit-config>
+		    <provider
+		        android:name="com.darryncampbell.cordova.plugin.intent.CordovaPluginIntentFileProvider"
+		        android:authorities="${applicationId}.darryncampbell.cordova.plugin.intent.fileprovider"
+		        android:exported="false"
+		        android:grantUriPermissions="true">
+		        <meta-data
+		            android:name="android.support.FILE_PROVIDER_PATHS"
+		            android:resource="@xml/provider_paths"/>
+		    </provider>
+		</edit-config>
 
 
 		
-
         <edit-config target="AndroidManifest.xml" parent="/*">
             <queries>
                 <intent>
@@ -77,9 +77,6 @@
                 </intent>
             </queries>
         </edit-config>
-
-
-
 		
 		<edit-config target="AndroidManifest.xml" parent="/manifest/application/activity">
 			<intent-filter>
